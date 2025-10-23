@@ -57,10 +57,10 @@ elif torch.cuda.is_available():
 else:
     device = 'cpu'
 print(f"Using device: {device}")
-if device == 'mps':
-    model_name = "papr-ai/Qwen3-Embedding-4B-CoreML"
-else: 
-    model_name = "Qwen/Qwen3-Embedding-0.6B"
+# if device == 'mps':
+#     model_name = "papr-ai/Qwen3-Embedding-4B-CoreML"
+# else: 
+model_name = "Qwen/Qwen3-Embedding-0.6B"
 model_kwargs = {'device': device}
 encode_kwargs = {'normalize_embeddings': True}
 
