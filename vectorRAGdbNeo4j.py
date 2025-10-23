@@ -9,12 +9,15 @@ from langchain_community.vectorstores import Neo4jVector
 from langchain_core.documents import Document
 import torch
 from tqdm import tqdm
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # --- Configuration ---
 DATA_DIR = os.path.join(os.getcwd(), "pdfs")
-NEO4J_URL = "bolt://localhost:7687"
-NEO4J_USER = "neo4j"
-NEO4J_PASSWORD = "test1234"
+NEO4J_URL = os.getenv("NEO4J_URI")#"bolt://localhost:7687"
+NEO4J_USER = os.getenv("NEO4J_USER")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 BATCH_SIZE = 16 # Using a smaller batch size for more frequent memory cleanup
 DOCUMENT_CACHE_PATH = "document_chunks.pkl"
 
@@ -33,16 +36,31 @@ else:
     splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=200)
     documents = splitter.split_documents(raw_documents)
     
-    print(f"Saving {len(documents)} split documents to cache: {DOCUMENT_CACHE_PATH}")
+    print("Assigning unique IDs to each document chunk...")
+    for i, doc in enumerate(documents):
+        source = doc.metadata.get("source", "unknown")
+        page = doc.metadata.get("page", "N/A")
+        # Create a simple, human-readable ID
+        doc.metadata["chunk_id"] = f"{os.path.basename(source)}-page:{page}-chunk:{i}"
+
+    print(f"Saving {len(documents)} split documents (with IDs) to cache...")
     with open(DOCUMENT_CACHE_PATH, "wb") as f:
         pickle.dump(documents, f)
 
 print(f"Total document chunks to process: {len(documents)}")
 
 # --- 2. Initialize Embeddings Model ---
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+if torch.backends.mps.is_available():
+    device = 'mps'
+elif torch.cuda.is_available():
+    device = 'cuda'
+else:
+    device = 'cpu'
 print(f"Using device: {device}")
-model_name = "Qwen/Qwen3-Embedding-0.6B"
+if device == 'mps':
+    model_name = "papr-ai/Qwen3-Embedding-4B-CoreML"
+else: 
+    model_name = "Qwen/Qwen3-Embedding-0.6B"
 model_kwargs = {'device': device}
 encode_kwargs = {'normalize_embeddings': True}
 
