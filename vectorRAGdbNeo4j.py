@@ -15,15 +15,15 @@ load_dotenv()
 
 # --- Configuration ---
 DATA_DIR = os.path.join(os.getcwd(), "pdfs")
-NEO4J_URL = os.getenv("NEO4J_URI")#"bolt://localhost:7687"
+NEO4J_URL =  "bolt://localhost:7687" #os.getenv("NEO4J_URI")  #"NEO4J_URI")#"bolt://localhost:7687"
 NEO4J_USER = os.getenv("NEO4J_USERNAME")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+NEO4J_PASSWORD = "test1234" #os.getenv("NEO4J_PASSWORD")
 print(NEO4J_URL)
 print(NEO4J_USER)
 print(NEO4J_PASSWORD)
 BATCH_SIZE = 16 # Using a smaller batch size for more frequent memory cleanup
 DOCUMENT_CACHE_PATH = "document_chunks.pkl"
-torch.mps.empty_cache()
+
 
 # --- 1. Load and Split Documents (with Caching) ---
 if os.path.exists(DOCUMENT_CACHE_PATH):
@@ -64,8 +64,8 @@ print(f"Using device: {device}")
 # if device == 'mps':
 #     model_name = "papr-ai/Qwen3-Embedding-4B-CoreML"
 # else: 
-# model_name = "Qwen/Qwen3-Embedding-0.6B"
-model_name = "google/embeddinggemma-300m"
+model_name = "Qwen/Qwen3-Embedding-0.6B"
+# model_name = "google/embeddinggemma-300m"
 model_kwargs = {'device': device}
 encode_kwargs = {'normalize_embeddings': True}
 
@@ -79,7 +79,7 @@ print(f"Initialized embedding model: {model_name}")
 # --- 3. Store Embeddings in Neo4j (with Explicit Memory Management) ---
 index_name = "docs_index"
 # --- Set to 0 for a fresh run. Set to the batch number that failed to resume. ---
-START_FROM_BATCH = 567
+START_FROM_BATCH = 0
 
 # On a fresh run (START_FROM_BATCH = 0), this block should be active.
 # When resuming, comment it out to preserve your progress.
