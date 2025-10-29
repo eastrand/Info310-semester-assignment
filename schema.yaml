@@ -1,0 +1,23 @@
+# schema.yaml
+entities:
+  - Agreement: The name or title of the peace agreement.
+  - Party: Any signatory or participating party (e.g., governments, rebel groups).
+  - Conflict: The name of the conflict the agreement addresses.
+  - Location: The city/country where the agreement was signed.
+  - Topic: Key subjects addressed (e.g., 'ceasefire', 'power-sharing', 'demilitarization').
+  - Date: The date the agreement was signed.
+  - Mediator: Any third party that facilitated the agreement.
+  - Third Party: Organizations or countries acting as mediators or guarantors (often synonymous with Mediator).
+  - Country: Countries involved as parties, locations, or related to conflicts.
+
+relationships:
+  - SIGNED_BY: Connects an Agreement to a signing Party.
+  - BELONGS_TO: Connects an Agreement to a Conflict it addresses.
+  - SIGNED_IN: Connects an Agreement to the Location where it was signed.
+  - HAS_STATUS: (Optional) Connects an Agreement to its status (e.g., 'active', 'lapsed').
+  - ADDRESSES: Connects an Agreement to a Topic it covers.
+  - HAS_DATE: Connects an Agreement to its signing Date.
+  - ORIGINATED_IN: Connects a Conflict or Party to a Country.
+  - MEDIATED_BY: Connects an Agreement to a mediating Third Party.
+  - GUARANTEED_BY: Connects an Agreement to a guaranteeing Third Party.
+  - BETWEEN: Connects a Conflict to the involved Countries or Parties.
