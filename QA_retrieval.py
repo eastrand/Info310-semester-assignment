@@ -101,14 +101,17 @@ def get_vector_results(question: str, driver, client: OpenAI) -> List[Dict]:
         input=question
     ).data[0].embedding
 
-    query = f"""
-    CALL db.index.vector.queryNodes('chunk_embeddings', $embedding, {TOP_K_VECTOR})
+    query = """
+    CALL db.index.vector.queryNodes('chunk_embeddings', $topK, $embedding)
     YIELD node, score
     RETURN node.doc_id AS doc_id, node.text AS text, score
     ORDER BY score DESC
     """
 
-    return neo4j_query(driver, query, {"embedding": embedding})
+    return neo4j_query(driver, query, {
+        "embedding": embedding,
+        "topK": TOP_K_VECTOR,
+    })
 
 
 def get_fulltext_results(question: str, driver) -> List[Dict]:
