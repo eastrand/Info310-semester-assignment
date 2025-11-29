@@ -1,0 +1,100 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+import time
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+
+
+URL = "https://www.peaceagreements.org/agreements/search/?search_type=basic-search&show_timeline=0&match_any_issues=True"
+
+# Setting up Selenium
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+driver.get(URL)
+
+wait = WebDriverWait(driver, 20)
+
+# Making the window fullscreen
+driver.maximize_window()
+time.sleep(2)
+
+try:
+    # Waiting for the page to load sufficiently and cookie banner to appear
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.TAG_NAME, "body")) 
+    )
+    
+    # Focusing on the main body of the page to ensure keystrokes start from there
+    driver.find_element(By.TAG_NAME, "body").click() 
+
+    # Using ActionChains to simulate keyboard actions
+    actions = ActionChains(driver)
+    
+    # Pressing the 'Tab' key once to move the focus to the cookie button
+    actions.send_keys(Keys.TAB)
+    
+    # Pressing the 'Enter' key to click the focused button
+    actions.send_keys(Keys.ENTER)
+    
+    # Executing the sequence of actions
+    actions.perform()
+
+    print("Accepted cookies using keyboard actions (Tab + Enter).")
+
+except Exception as e:
+    print(f"An error occurred during keyboard interaction: {e}")
+
+time.sleep(2)
+
+# Finding the 'See all results' button
+see_all_results_selector = "a.btn.btn-primary.fit-content"
+
+try:
+    # Waiting until the element is present in the DOM and visible
+    button_element = WebDriverWait(driver, 20).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, see_all_results_selector))
+    )
+    
+    # Using JavaScript to scroll the element into the viewport, [0].scrollIntoView(true) makes sure the top of the element aligns with the top of the visible area
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", button_element)
+    
+    # Ading a brief pause to help visually confirm the scroll and ensures the browser is ready
+    time.sleep(0.5) 
+
+    # Using JavaScript to perform the click directly, ignoring the overlays on the webpage
+    driver.execute_script("arguments[0].click();", button_element)
+
+    print("Clicked the 'See all results' link/button using JavaScript force-click.")
+
+except Exception as e:
+    print(f"Could not interact with the 'See all results' button. Error: {e}")
+
+# Giving the webpage time to load completely
+time.sleep(35)
+
+# Finding the pdf urls
+# Filtering out the agreements that are not in English
+link_elements = driver.find_elements(By.CSS_SELECTOR, "a[href$='.pdf']:not(.btn-download)") # REPLACE WITH ACTUAL SELECTOR
+
+pdf_urls_set = set()
+base_url = "https://www.peaceagreements.org" # REPLACE WITH THE BASE URL OF THE WEBSITE
+
+for link_element in link_elements:
+    href = link_element.get_attribute('href')
+    # Checking if the URL is absolute and ends with or contains .pdf
+    if href:
+        if not href.startswith("http"):
+            # If the link is relative, prepend the base URL
+            absolute_url = base_url + href
+            pdf_urls_set.add(absolute_url)
+        else:
+            pdf_urls_set.add(href)
+
+print(f"Found {len(pdf_urls_set)} PDF URLs to download.")
+
+# Closing the browser once the URLs are collected
+driver.quit()
+
