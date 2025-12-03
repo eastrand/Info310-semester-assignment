@@ -1,0 +1,106 @@
+digraph PeacePipeline {
+    rankdir=TB;
+    nodesep=0.6;
+    ranksep=1.0;
+    node [shape=box, style=rounded, fontsize=11, width=2.8];
+
+    # -------------------------
+    # Data Preparation Cluster
+    # -------------------------
+    subgraph cluster_ingest {
+        label="Data Preparation";
+        style=filled;
+        color=lightgrey;
+
+        ScrapePDFs     [label="PDF Finder (Selenium)\nCollect PDF URLs"];
+        DownloadPDFs   [label="PDF Downloader\n(Multithreaded)"];
+        DetectImagePDF [label="Detect Image-based PDFs\n(PyMuPDF text check)"];
+        OCRPDFs        [label="OCR PDFs\n(pdf2image + Tesseract)"];
+        PrepareTexts   [label="Store OCR → .txt\nMove originals to discarded/"];
+        Chunking       [label="Text Chunking\n(RecursiveCharacterTextSplitter)"];
+        SaveChunks     [label="Save Chunk Dataset\n(document_chunks.pkl)"];
+
+        ScrapePDFs -> DownloadPDFs -> DetectImagePDF -> OCRPDFs -> PrepareTexts -> Chunking -> SaveChunks;
+    }
+
+    # -------------------------
+    # Vector Store Cluster
+    # -------------------------
+    subgraph cluster_vector {
+        label="Vector Store Ingestion";
+        style=filled;
+        color=lightblue;
+
+        LoadChunks  [label="Load Chunks\n(document_chunks.pkl)"];
+        InsertDocs  [label="Insert Document Nodes\n(:Document)"];
+        EmbedChunks [label="Embed + Insert Chunks\n(Neo4jVector)"];
+        LinkChunks  [label="Link Document → Chunk\n(:HAS_CHUNK)"];
+
+        LoadChunks -> InsertDocs -> EmbedChunks -> LinkChunks;
+    }
+
+    # -------------------------
+    # Knowledge Graph Cluster
+    # -------------------------
+    subgraph cluster_kg {
+        label="Knowledge Graph Extraction";
+        style=filled;
+        color=lightyellow;
+
+        FetchDocs      [label="Fetch All Documents\nfrom Neo4j"];
+        LLMExtractKG   [label="LLM Extract Entities + Relationships"];
+        InsertEntities [label="Insert Entities"];
+        InsertRels     [label="Insert Relationships"];
+
+        FetchDocs -> LLMExtractKG -> InsertEntities -> InsertRels;
+    }
+
+    # -------------------------
+    # RAG Retrieval Cluster
+    # -------------------------
+    subgraph cluster_rag {
+        label="RAG Question Answering";
+        style=filled;
+        color=lightgreen;
+
+        EmbedQ         [label="Embed Question\n(OpenAI)"];
+        VectorSearch   [label="Vector Search"];
+        FulltextSearch [label="Fulltext Search"];
+        KGSearch       [label="KG Search"];
+        FuseResults    [label="Score Fusion\n(Reciprocal Rank Fusion)"];
+        BuildContext   [label="Build Context Window"];
+        GenerateAnswer [label="Generate Answer\n(LLM)"];
+
+        EmbedQ -> VectorSearch;
+        EmbedQ -> FulltextSearch;
+        EmbedQ -> KGSearch;
+        VectorSearch -> FuseResults;
+        FulltextSearch -> FuseResults;
+        KGSearch -> FuseResults;
+        FuseResults -> BuildContext -> GenerateAnswer;
+    }
+
+    # -------------------------
+    # Evaluation Cluster
+    # -------------------------
+    subgraph cluster_eval {
+        label="Evaluation (DeepEval)";
+        style=filled;
+        color=lightpink;
+
+        LoadEval        [label="Load Evaluation Dataset"];
+        RetrieveCtx     [label="Rebuild Retrieval Context"];
+        CompareGT       [label="Compare to Ground Truth"];
+        ComputeMetrics  [label="Compute Metrics\n(Precision, Relevancy, Faithfulness)"];
+
+        LoadEval -> RetrieveCtx -> CompareGT -> ComputeMetrics;
+    }
+
+    # -------------------------
+    # Cross-cluster flow
+    # -------------------------
+    SaveChunks -> LoadChunks;
+    LinkChunks -> FetchDocs;
+    InsertRels -> EmbedQ;
+    GenerateAnswer -> LoadEval [style=dashed, label="optional"];
+}

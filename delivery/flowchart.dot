@@ -1,0 +1,89 @@
+digraph PeacePipeline {
+    rankdir=LR;
+    node [shape=box, style=rounded, fontsize=12];
+
+    subgraph cluster_ingest {
+        label="Data Preparation";
+        style=filled;
+        color=lightgrey;
+        
+        ScrapePDFs     [label="PDF Finder (Selenium)\nCollect PDF URLs"];
+        DownloadPDFs   [label="PDF Downloader (Multithreaded)\nSave PDFs to disk"];
+        DetectImagePDF [label="Detect Image-based PDFs\n(PyMuPDF text check)"];
+        OCRPDFs        [label="OCR PDFs\n(pdf2image + Tesseract)"];
+        PrepareTexts   [label="Store OCR text → .txt\nMove original to discarded/"];
+        Chunking       [label="Text Chunking\n(RecursiveCharacterTextSplitter)"];
+        SaveChunks     [label="Save Chunk Dataset\n(document_chunks.pkl)"];
+
+        ScrapePDFs -> DownloadPDFs -> DetectImagePDF -> OCRPDFs -> PrepareTexts -> Chunking -> SaveChunks;
+    }
+
+    subgraph cluster_vector {
+        label="Vector Ingestion";
+        style=filled;
+        color=lightblue;
+        
+        LoadChunks [label="Load document_chunks.pkl"];
+        FilterExisting [label="Skip already ingested\n(doc_id in Neo4j)"];
+        AddDocs    [label="Create Document nodes"];
+        AddChunks  [label="Embed + Insert Chunks\nNeo4jVector"];
+        LinkChunks [label="Link Document → Chunks"];
+
+        LoadChunks -> FilterExisting -> AddDocs -> AddChunks -> LinkChunks;
+    }
+
+    subgraph cluster_kg {
+        label="Knowledge Graph Extraction";
+        style=filled;
+        color=lightyellow;
+        
+        FetchDocs      [label="Fetch Documents from Neo4j"];
+        SkipKGExisting [label="Skip docs with existing KG\n(:DERIVED_FROM)"];
+        KGLLMExtract   [label="LLM extract entities + relationships"];
+        InsertEntities [label="Insert Entities"];
+        InsertRels     [label="Insert Relationships"];
+
+        FetchDocs -> SkipKGExisting -> KGLLMExtract -> InsertEntities -> InsertRels;
+    }
+
+    subgraph cluster_rag {
+        label="RAG Retrieval & QA";
+        style=filled;
+        color=lightgreen;
+        
+        EmbedQuestion  [label="Embed Question"];
+        VectorSearch   [label="Vector Search"];
+        FulltextSearch [label="Fulltext Search"];
+        KGSearch       [label="KG Search"];
+        FuseResults    [label="Reciprocal Rank Fusion"];
+        BuildContext   [label="Build Context Window"];
+        LLMAnswer      [label="LLM Answer Generation"];
+
+        EmbedQuestion -> VectorSearch;
+        EmbedQuestion -> FulltextSearch;
+        EmbedQuestion -> KGSearch;
+        VectorSearch -> FuseResults;
+        FulltextSearch -> FuseResults;
+        KGSearch -> FuseResults;
+        FuseResults -> BuildContext -> LLMAnswer;
+    }
+
+    subgraph cluster_eval {
+        label="Evaluation (DeepEval)";
+        style=filled;
+        color=lightpink;
+
+        LoadQA      [label="Load QA Dataset"];
+        RebuildCtx  [label="Rebuild Retrieval Context"];
+        CompareGT   [label="Compare Answer to Ground Truth"];
+        Metrics     [label="Compute Metrics\n(Precision, Relevancy, Faithfulness)"];
+
+        LoadQA -> RebuildCtx -> CompareGT -> Metrics;
+    }
+
+    # Pipeline connections between clusters
+    SaveChunks -> LoadChunks;
+    LinkChunks -> FetchDocs;
+    InsertRels -> EmbedQuestion;
+    LLMAnswer -> LoadQA [style=dashed, label="(optional eval)"];
+}
