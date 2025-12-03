@@ -33,25 +33,26 @@ pip install -r requirements.txt
 Some dependencies may need to be installed manually:
 
 pip install:
-   selenium webdriver_manager 
-   
-   requests 
-   
-   langchain-community 
 
-   langchain-core 
+- selenium webdriver_manager 
+   
+- requests 
+   
+- langchain-community 
 
-   langchain-openai 
+- langchain-core 
+
+- langchain-openai 
    
-   deepeval 
+- deepeval 
    
-   tqdm 
+- tqdm 
    
-   python-dotenv 
+- python-dotenv 
    
-   openai 
+- openai 
    
-   neo4j
+- neo4j
 
 2. Environment Configuration
 
