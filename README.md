@@ -75,7 +75,7 @@ OPENAI_API_KEY=your_openai_api_key
    Use the downloader to save the files locally.
 
 3. Chunk Documents  
-   Organize the PDFs and any text files, then run the chunking script to generate processed chunks.
+   Organize the PDFs and any text files in the chose directory, then run the chunking script to generate processed chunks.
 
 4. Ingest Data  
    Run the ingestion script to add documents/chunks to Neo4j.
