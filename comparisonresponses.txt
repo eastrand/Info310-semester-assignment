@@ -1,0 +1,195 @@
+python QA_retrieval.py --questions-file comparison_prompts.txt --fusion
+
+====================================================
+QUESTION: Which African peace agreements since 2000 have included explicit provisions for disarmament, demobilization, and reintegration (DDR)?
+====================================================
+
+/Users/eas/Documents/Info310/Info310-semester-assignment/QA_retrieval.py:273: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  datetime.utcnow().isoformat(),
+ANSWER:
+
+Based only on the retrieved documents, the following African peace agreements (since 2000) include explicit DDR (or DDRR) provisions:
+
+- Sudan (nationwide ceasefire/security arrangements text; doc ag270)
+  - Commits to “credible, transparent and effective DDR processes.”
+  - Sets detailed DDR principles: national ownership and state-led DDR institutions; international partners in a supportive role; fairness/equity in eligibility; community-based, gender-sensitive reintegration; transparency and accountability; demobilization of all child soldiers within six months; identification and family tracing for separated children within six months; UNICEF/ICRC support; and sustained international financial/logistical support.
+
+- Sudan (Darfur peace text referenced by UN A/65/914–S/2011/449; doc ag853)
+  - Re-establishes the North-Sudan DDR Commission with representation from the Movements.
+  - UNAMID to verify Movements’ forces; UN agencies to assist with DDR planning and sequencing.
+  - GoS to provide financial/logistical support; specific resources for women’s reintegration needs.
+  - Parties to assemble former combatants; set eligibility criteria; and ensure release process for all child combatants.
+
+- Sudan (Eastern Sudan Peace Agreement – ESPA; doc ag373)
+  - Defines “Assembly,” “Assembly Areas,” and “Demobilization” in the context of disarmament and reintegration, embedding DDR concepts in the security arrangements of the agreement.
+
+- Burundi (Pretoria decisions regarding FNL; doc ag713)
+  - Decisions taken to remove obstacles impeding the Disarmament, Demobilisation and Reintegration (DDR) process, tied to facilitating recognition of the FNL as a political party and maintaining equity consistent with the 2000 Arusha Agreements.
+
+- Central African Republic (Agreement on the principles of DDRR; UN S/2015/344; 10 May 2015; doc ag2035)
+  - Articles 2–4 lay out DDRR scope and eligibility: covers combatants of all signatory armed groups; requires surrender of all weapons/explosives; explicitly includes children associated with armed forces/groups whether or not armed; provides for assembly at agreed sites under Government responsibility with partner support.
+
+- Central African Republic (Political Agreement provisions on DDRR; UN S/2019/145; 2019; doc ag2147)
+  - Article 6 underscores the National DDRR Programme and calls for rigorous, transparent management, with armed groups involved in strategic/technical bodies and funding via partners and State budget.
+  - Provides modalities for those wishing to join uniformed services and establishes national committees to steer and monitor DDRR implementation in line with the 2015 DDRR principles agreement.
+
+- Central African Republic (DDR-related commitments; doc ag2258)
+  - Calls for recognition of DDRR stages; acceleration of “Great DDRRR”; integration of politico-military elements into security services; security assurances for disarmed/demobilized/billeted ex-combatants; dissolution of militias; regulation of arms (including homemade weapons); issuance of civil status documents to ex-combatants as part of DDRR; health/food support for billeted ex-combatants; and related SSR measures.
+
+- Chad (Doha Agreement; doc ag2449)
+  - Adopts a DDR programme aligned with international norms.
+  - Two-stage DDR process: (1) from signature, political-military movements submit combatant lists with biometric data to the implementation committee; (2) after the National Inclusive Dialogue of N’Djamena, movements present verified counts of combatants, weapons, and locations (coordinated with neighboring-country authorities).
+  - Also mandates removal of weapons from civilians and combating illegal arms possession.
+
+- Democratic Republic of the Congo (Agreement with FRPI; Gety, 28 Feb 2020; doc ag2401)
+  - Establishes a DDRR process in Ituri under Government lead with MONUSCO support.
+  - Details: disarmament/demobilization to improve security and restore State authority; recovery/destruction of FRPI arms; demobilization and return to civilian life; integration of eligible candidates into Defense and Security Forces; short-term reinsertion via community violence reduction projects; and longer-term reintegration.
+
+- Democratic Republic of the Congo (South Kivu provincial accord on DDR focal points; doc ag2409)
+  - A co-signed local accord adopting six focal points tied to a DDR process (Community Demobilisation, Disarmament, Reinsertion, Reintegration, and Reconciliation), including a ceasefire commitment and steps to rebuild trust and restore State authority.
+
+- Libya (Declaration of the Paris International Conference for Libya, 12 Nov 2021; doc ag2433)
+  - Welcomes Libyan-led DDR initiatives and calls for a comprehensive, inclusive, nationwide DDR plan as part of a political settlement, with urgent assistance to Libyan authorities and attention to gender-based violence. (Note: this is an international conference declaration rather than an intra-Libyan peace agreement, but it explicitly addresses DDR in the Libyan peace process.)
+
+This answer is based only on the retrieved documents and may be incomplete.
+
+----------------------------------------------------
+
+/Users/eas/Documents/Info310/Info310-semester-assignment/QA_retrieval.py:75: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  datetime.utcnow().isoformat(),
+
+====================================================
+QUESTION: What are the common themes regarding demilitarization in agreements signed in Africa
+====================================================
+
+ANSWER:
+
+This answer is based only on the retrieved documents and may be incomplete.
+
+Common demilitarization themes in African agreements (as reflected in the documents):
+
+- Immediate cessation of hostilities and prohibitions on actions that risk re-escalation:
+  - Ceasefire orders across all terrain (ag671; ag672).
+  - Bans on attacks, provocations, sabotage, occupation of new positions, movement of forces/equipment, and resupply of arms/ammunition (ag671; ag672).
+  - Local commitments to stop attacking convoys/humanitarian vehicles and to dismantle barricades/checkpoints (ag2196).
+
+- Disengagement, redeployment, and creation of demilitarized/buffer zones:
+  - Disengagement of armed groups, establishment of buffer/demilitarized zones, and structured redeployment to transit/mixing/demobilization centers (ag671; ag672).
+  - Border-area demilitarization and phased redeployment along contested frontiers, supervised by observers (ag471).
+
+- Mapping, identification, and control of forces:
+  - Detailed geographic location/mapping of armed groups and formal ceasefire orders down the chain of command (ag671; ag672).
+  - Obligations to transmit agreement contents to rank-and-file and maintain command and control during implementation (ag336).
+
+- Monitoring, verification, and third-party oversight:
+  - Joint verification/monitoring mechanisms and liaison teams with neutral international presence (ag336).
+  - Deployment of UN observers (e.g., MONUC) to monitor ceasefires and buffer zones (ag671; ag672).
+  - Supervision by Military Observers for demilitarization processes (ag471).
+  - Community-level Joint Monitoring Committees for local accords (ag2196).
+
+- Disarmament, demobilization, and reintegration (DDR/PNDDR/DDRR):
+  - Formal DDR/PNDDR/DDRR frameworks, including “mixing”/integration of combatants into national forces as appropriate, and use of demobilization/training centers (ag671; ag672; ag1442).
+  - Demobilization allowances and support for ex-combatants (ag306; ag2258).
+  - Employment and reintegration measures, including high-intensity labor projects (THIMO) and community reintegration initiatives (ag1442; ag2196).
+
+- Arms control and militia dissolution:
+  - Dissolution of all militias (ag2258).
+  - Fight against arms trafficking; prohibition of home manufacture and collection of homemade weapons; regulation of hunting weapons (ag2258).
+  - Repatriation of foreign mercenaries/foreign armed elements (ag2258; ag671/ag672 via disarmament and repatriation plans).
+
+- Security guarantees and protection:
+  - Security assurances for disarmed, demobilized, and billeted ex-combatants (ag2258).
+  - Protection of civilians, including securing minority communities and safe humanitarian access (ag2258; ag2196).
+
+- Local/community peace infrastructure and social cohesion measures linked to demilitarization:
+  - Community commitments to denounce spoilers and establish joint monitoring/awareness efforts (ag2196).
+  - Calls to suppress divisive militia labels, end media manipulation, and promote a culture of peace to support demilitarization (ag2258).
+
+- Institutional and regional/international frameworks:
+  - Emphasis on the apolitical nature/neutrality of national defense and police forces (ag722; ag306).
+  - Use of UN/AU/OAU mechanisms and reference to regional/international resolutions and facilitation (ag818; ag471; ag722; ag336).
+  - Technical cartographic support for border delimitation/demarcation tied to demilitarization (ag471).
+  - Establishment of observatories on arms trafficking and related threats in the region (ag306).
+
+- Practical de-escalation steps:
+  - Dismantling of roadblocks/barricades by both local actors and peace operations (MINUSCA) (ag2196).
+  - Sequenced processes: ceasefire → disengagement/buffer zones → observer deployment → movement to cantonment/mixing/DDR centers → integration/reintegration (ag671; ag672; ag1442).
+
+----------------------------------------------------
+
+
+====================================================
+QUESTION: What mechanisms for power sharing were included in the 2015 South Sudan peace agreement?
+====================================================
+
+ANSWER:
+
+This answer is based only on the retrieved documents and may be incomplete.
+
+- Creation of a Transitional Government of National Unity (TGoNU)
+  - Mandated to implement the agreement during a Transitional Period of 30 months, preceded by a 90‑day Pre‑transitional Period.
+  - Elections to be held 60 days before the end of the Transitional Period.
+
+- Executive power‑sharing at the national level (TGoNU Executive)
+  - Government of the Republic of South Sudan (GRSS): 53%
+  - South Sudan Armed Opposition: 33%
+  - Former Detainees: 7%
+  - Other Political Parties: 7%
+
+- State‑level power‑sharing in the three conflict‑affected states (Jonglei, Unity, Upper Nile)
+  - Executive (State Councils of Ministers) reconstituted with:
+    - GRSS: 46%
+    - South Sudan Armed Opposition: 40%
+    - Former Detainees: 7%
+    - Other Political Parties: 7%
+  - Transitional Governors to be appointed within one month of the start of the Transitional Period:
+    - Unity and Upper Nile Governors nominated by the South Sudan Armed Opposition (and appointed by the President).
+    - Jonglei Governor nominated by the GRSS (and appointed by the President).
+  - If a State Ministerial post becomes vacant, the replacement is nominated by the party that originally selected that portfolio.
+
+- State‑level power‑sharing in the remaining seven states
+  - GRSS holds 85% of the Executive; South Sudan Armed Opposition holds 15% of the Executive.
+
+----------------------------------------------------
+
+
+====================================================
+QUESTION: What clauses in the 2004 Darfur peace protocol regulated the use of drones for monitoring?
+====================================================
+
+ANSWER:
+
+- Based on the retrieved documents, none of the 2004 Darfur agreements or protocols contain clauses regulating the use of drones (unmanned aerial vehicles) for monitoring.
+
+- The 2004 instruments referenced in the context establish monitoring through human-led mechanisms—AMIS, the Ceasefire Commission (CFC), the Joint Commission, observers, and sector sub-commissions—without mentioning aerial surveillance or drones:
+  - Humanitarian Ceasefire Agreement (8 April 2004) and Protocol on Humanitarian Assistance (8 April 2004) [listed as Annexures in the DPA].
+  - Agreement on the Modalities for the Establishment of the Ceasefire Commission and the Deployment of Observers (28 May 2004, Addis Ababa), which sets up the Joint Commission and CFC/observers (ag92_…; ag751_…).
+  - Protocols of 9 November 2004 (Improvement of the Humanitarian Situation; Enhancement of the Security Situation), referenced but with no retrieved text on drones.
+
+- Monitoring provisions cited include:
+  - Establishment and roles of the Joint Commission and CFC/observers (ag92_…; ag751_…).
+  - AMIS-led demilitarized zones and monitoring responsibilities (ag350_…).
+  - General strengthening of monitoring/verification mechanisms (Article 25 in the DPA, referencing AMIS/CFC/JC/JHFMU) (ag350_…).
+  None of these mention or regulate drones.
+
+This answer is based only on the retrieved documents and may be incomplete.
+
+----------------------------------------------------
+
+
+====================================================
+QUESTION: What peace agreement in Antarctica addressed climate refugee relocation in 2018?
+====================================================
+
+ANSWER:
+
+- Based on the retrieved documents, there is no peace agreement in Antarctica, nor any 2018 agreement that addresses climate refugee relocation.
+- Several retrieved texts do mention return/relocation in other contexts (none in Antarctica or in 2018, and none specifically about climate refugees):
+  - Colombia (2016): Provisions for return and relocation of displaced persons under conditions of safety, dignity, and voluntariness, coordinated with rural reform (DOC: ag1547_57c55740897fc.pdf).
+  - General humanitarian principles: Protection from forcible relocation and requirements for consultation and suitable sites if relocation occurs (DOC: ag1967_5b368d8ea47ba.pdf).
+  - Central African Republic (undated in extract): Discussion of displaced persons’ relocation and related security/justice issues in Bangassou (DOC: ag2211_5e32b747e2eae.pdf).
+  - South Africa–UNHCR (early 1990s): Voluntary repatriation and reintegration of South African returnees (DOC: ag449_56c72944ceba4.txt).
+
+This answer is based only on the retrieved documents and may be incomplete.
+
+----------------------------------------------------
