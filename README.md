@@ -47,10 +47,12 @@ pip install selenium webdriver_manager requests langchain-community langchain-co
 Set up environment variables for Neo4j and OpenAI in a .env file:
 
 NEO4J_URL=bolt://localhost:7687
+
 NEO4J_USER=neo4j
+
 NEO4J_PASSWORD=your_password
+
 OPENAI_API_KEY=your_openai_api_key
-   
 
 # Usage
 
