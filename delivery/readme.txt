@@ -2,6 +2,8 @@ README – Instructions for running the pipeline in Jupyter
 
 This project processes the Peace Agreements dataset, downloads PDFs, performs OCR when needed, chunks documents, ingests them into Neo4j with vector embeddings, extracts a knowledge graph, and provides a RAG-based QA interface. This document explains how to run the pipeline assuming you only have normal Python installed.
 
+NOTE: there might be some redundant or unused pip installs in the install section
+
 Install Jupyter Notebook
 Run:
 pip install notebook
