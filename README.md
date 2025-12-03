@@ -33,27 +33,24 @@ The main steps covered by this project are:
 
 1.Install Dependencies
 
-   Make sure you have Python 3.9+ installed.  
-   Recommended: Use a virtual environment.
+Make sure you have Python 3.9+ installed.  
+Recommended: Use a virtual environment.
 
+pip install -r requirements.txt
 
-   pip install -r requirements.txt
+Some dependencies may need to be installed manually:
 
-
-   Some dependencies may need to be installed manually:
-
-   pip install selenium webdriver_manager requests langchain-community langchain-core langchain-openai deepeval tqdm python-dotenv openai neo4j
-
+pip install selenium webdriver_manager requests langchain-community langchain-core langchain-openai deepeval tqdm python-dotenv openai neo4j
 
 2. Environment Configuration
 
-   Set up environment variables for Neo4j and OpenAI in a .env file:
+Set up environment variables for Neo4j and OpenAI in a .env file:
 
-   NEO4J_URL=bolt://localhost:7687
-   NEO4J_USER=neo4j
-   NEO4J_PASSWORD=your_password
-   OPENAI_API_KEY=your_openai_api_key
-   ```
+NEO4J_URL=bolt://localhost:7687
+NEO4J_USER=neo4j
+NEO4J_PASSWORD=your_password
+OPENAI_API_KEY=your_openai_api_key
+   
 
 # Usage
 
