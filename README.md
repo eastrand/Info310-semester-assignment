@@ -34,14 +34,23 @@ Some dependencies may need to be installed manually:
 
 pip install:
    selenium webdriver_manager 
+   
    requests 
+   
    langchain-community 
+
    langchain-core 
+
    langchain-openai 
+   
    deepeval 
+   
    tqdm 
+   
    python-dotenv 
+   
    openai 
+   
    neo4j
 
 2. Environment Configuration
